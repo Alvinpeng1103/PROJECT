@@ -1,0 +1,88 @@
+body {
+    background: #424242;
+    color: #ffffff;
+    font-family: sans-serif;
+}
+
+.grid-container {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-content: center;
+}
+
+#signup {
+    font-size: 18px;
+    margin: 20px 0px 30px 0px;
+    justify-self: center;
+}
+
+.formlabel {
+    font-size: 14px;
+}
+
+.formbox {
+    height: 35px;
+    width: 300px;
+    margin: 5px 0px 10px 0px;
+    border: 0px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 6px 8px 6px 8px;
+}
+
+#register {
+    height: 50px;
+    width: 300px;
+    border: 0px;
+    border-radius: 2px;
+    color: #ffffff;
+    background: #e64626;
+    margin-top: 15px;
+}
+
+.invalids {
+    display: inline-block;
+    color: orange;
+    font-size: 14px;
+    max-width: 300px;
+    position: fixed;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.pass {
+    margin-left: 320px;
+}
+
+a {
+    font-size: 12px;
+    color: #ffffff;
+    justify-self: center;
+    margin: 20px 0px 0px 0px;
+}
+
+.input-box {
+    display: grid;
+    grid-template-columns: 1fr 0;
+}
+
+.eye {
+    color: black;
+    position: relative;
+    top: 15px;
+    right: 25px;
+}
+
+#hide1 {
+    display: none;
+    position: relative;
+    right: -1px;
+}
+
+#hide3 {
+    display: none;
+    position: relative;
+    right: -1px;
+}

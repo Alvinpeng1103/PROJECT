@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+
+{% block others %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'managelist/style.css' %}">
+{% endblock %}
+
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
+<script src="{% static 'managelist/manage.js' %}"></script>
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class = "container">
+
+    <div class = "item-1"><h1> Manage Applications </h1></div>
+
+
+    <div class = "item-2">
+    <input type="text" id = "search" 
+    name = "search_item"  placeholder="Search..">
+    </div>
+
+      
+
+<div class = "item-4">
+
+<table class="applicationlist" id="sort_application">
+        <thead>
+            <th>Id</th>
+            <th class = "sort_col" data-column = 1 data-order = "DESC" name="Project Title">Project Title &#x25B2</th>
+            <th class = "sort_col" data-column = 2 data-order = "DESC" name="Date Created">Date Created &#x25B2</th>
+            <th class = "sort_col" data-column = 3 data-order = "DESC" name="Last Modified">Last Modified &#x25B2</th>
+            <th>Status</th>
+            <th class = "sort_col" data-column = 5 data-order = "DESC" name="Supervisor">Supervisor &#x25B2</th>
+            <th>Operation</th>
+          </thead>
+    {% for item in applications %}
+    {% if item.status == 'COMPLETE' %}
+
+    <tbody>
+    <tr class="row">
+    <td>{{item.id}}</td>
+    <td>{{item.title}}</td>
+    <td>{{item.date_created}}</td>
+    <td>{{item.last_modified}}</td>
+    <td>{{item.status}}</td>
+    <td>{{item.supervisor}}</td>
+    <td class = "Operations">
+        <div class = "threedots"><p>&#8942;</p></div>
+        <div class = "links"> 
+            <a href="{% url 'viewPage' item_id=item.id %}" name='viewpage'>View</a>
+            <a href="{% url 'approve' item_id=item.id %}" name ='approve'>Approve</a>
+            <a href="{% url 'disapprove' item_id=item.id %}" name ='disapprove'>Disapprove</a>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+
+    {% endif %}
+    {% endfor %}
+
+
+</table>
+</div>
+
+
+
+{% endblock %}

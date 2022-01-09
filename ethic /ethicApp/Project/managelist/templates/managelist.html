@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+
+{% block others %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'managelist/style.css' %}">
+ {% endblock %}
+
+
+ {% block js %}
+  <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
+  <script src="{% static 'managelist/manage.js' %}"></script>
+ {% endblock %}
+
+
+
+{% block content %}
+
+<div class = "container">
+
+    <div class = "item-1"><h1> Manage Applications </h1></div>
+
+
+      <div class = "item-2">
+        <input type="text" id = "search" 
+        name = "search_item"  placeholder="Search..">
+      </div>
+
+      <div class = "item-3">
+
+        <a href="{% url 'qualifierwelcome' %}"><button class = start_new_app_button type="button" name="start">Start new application</button></a>
+
+      </div>
+      
+      
+  
+      <div class = "item-4">
+        <table class = "applicationlist" id = "sort_application">
+            <thead>
+              <th>Id</th>
+              <th class = "sort_col" data-column = 1 data-order = "DESC" name="Project Title">Project Title &#x25B2</th>
+              <th class = "sort_col" data-column = 2 data-order = "DESC" name="Date Created">Date Created &#x25B2</th>
+              <th class = "sort_col" data-column = 3 data-order = "DESC" name="Last Modified">Last Modified &#x25B2</th>
+              <th>Status</th>
+              <th class = "sort_col" data-column = 5 data-order = "DESC" name="Supervisor">Supervisor &#x25B2</th>
+              <th colspan="2">Operation</th>
+            </thead>
+
+
+            <tbody>
+            {% for item in applications %}
+            
+            <tr class = "row">
+            
+                <td>{{item.id}}</td>
+                <td>{{item.title}}</td>
+                <td>{{ item.date_created|date:"d/m/Y" }}</td>
+                <td>{{item.last_modified|date:"d/m/Y" }}</td>
+                <td>{{item.status}}</td>
+                <td>{{item.supervisor}}</td>
+
+                <!-- Change the download link here -->
+                <td class = "Operations">
+                  <div class = "threedots"><p>&#8942;</p></div>
+                  <div class = "links"> 
+                  
+                  {% if item.status != "IN PROGRESS" %}       
+                  <a name = "view" href="{% url 'viewNormal' item_id=item.id %}">View</a>
+                  {% else %}
+                  <a name = "edit" href="{% url 'questionnaire' item.id  %}">edit</a>
+                  <a href ="{% url 'delete' item.id %}" onclick = "return confirm('Do you want to delete the application: {{item.title}} ?')">Withdraw</a> 
+                  {% endif %}
+                </div> 
+              </td>
+            </tr>
+          
+            {% endfor %}
+
+          </tbody>
+          </table>
+      </div>
+      
+    
+</div>
+        
+
+{% endblock %}

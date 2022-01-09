@@ -1,0 +1,100 @@
+body {
+    background: #424242;
+    color: #ffffff;
+    font-family: sans-serif;
+}
+
+.grid-container {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-content: center;
+}
+
+#signin {
+    font-size: 18px;
+    margin: 20px 0px 30px 0px;
+    justify-self: center;
+}
+
+.formlabel {
+    font-size: 14px;
+}
+
+.input-box {
+    display: grid;
+    grid-template-columns: 1fr 0;
+}
+
+.input {
+    height: 35px;
+    border: 0px;
+    margin: 5px 0px 10px 0px;
+    padding: 6px 8px 6px 8px;
+    width: 300px;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+#login {
+    height: 50px;
+    width: 300px;
+    border: 0px;
+    border-radius: 2px;
+    color: #ffffff;
+    background: #e64626;
+}
+
+#checklabel {
+    font-size: 12px;
+    position: relative;
+    top: -3px;
+}
+
+#checkbox {
+    height: 16px;
+    width: 16px;
+    margin: 5px 0px 20px 0px;
+}
+
+/* #invaliddata { 
+    display: grid;
+    height: 35px;
+    width: 300px; 
+    margin: 5px 0px 10px 0px;
+    border: 0px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    justify-items: center;
+    align-items: center;
+    color:#ffffff;
+    background-color: red;
+} */
+
+.invalids {
+    color: orange;
+    font-size: 14px;
+    max-width: 300px;
+    margin: 0;
+}
+
+a {
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    margin: 20px 0px 0px 0px;
+}
+
+.eye {
+    color: black;
+    position: relative;
+    top: 15px;
+    right: 25px;
+}
+
+#hide1 {
+    display: none;
+    position: relative;
+    right: -1px;
+}

@@ -1,0 +1,69 @@
+{% include 'top.html' %}
+    <div class="content">
+        <h1 class="title">Search Artist</h1>
+
+        <script type="text/javascript">
+
+            var data_name_list= '{{ albums_name | tojson }}';
+            data_name_list = data_name_list.substring(1).slice(0,-1).replace(/"/g, "").split(",");
+
+            var n = data_name_list.length;
+
+            function ac(value) {
+
+                document.getElementById('suggestion-list').innerHTML = '';
+
+                l=value.length;
+                if(l==0){
+                    return;
+                }
+                //input query length
+                for (var i = 0; i<n; i++) {
+                    if(((data_name_list[i].toLowerCase()).indexOf(value.toLowerCase()))>-1)
+                    {
+
+                        var node = document.createElement("option");
+                        var val = document.createTextNode(data_name_list[i]);
+                        node.appendChild(val);
+
+                        document.getElementById("suggestion-list").appendChild(node);
+                    }
+                }
+            }
+
+        </script>
+
+        <form class="Search" method="POST" action="{{url_for('search_albums')}}">
+            <input type="text" list="suggestion-list" id = "userText" oninput="ac(this.value)" name="searchterm" placeholder="Artists" autofocus required>
+            <datalist id="suggestion-list">
+            </datalist>
+            <button class="flat" type="submit">Search</button>
+        </form>
+
+            {% if albums | length > 0 %}
+                <!-- All Album -->
+                <table class="styled">
+                    <thead>
+                        <tr>
+                            <td>Album ID</td>
+                            <td>Album Name</td>
+                            <td>Album Song Count</td>
+                            <td>Album Artists</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instance in albums %}
+                            <!-- Each row is a link to each individual album page -->
+                            <tr class="clickable-tr" data-href="{{ url_for('single_album', album_id=instance.album_id)}}">
+                                <td style="text-align: center">{{ instance.album_id }}</td>
+                                <td>{{instance.album_title}}</td>
+                                <td>{{instance.count}}</td>
+                                <td>{{instance.artists}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            {% endif %}
+    </div>
+{% include 'bottom.html'%}

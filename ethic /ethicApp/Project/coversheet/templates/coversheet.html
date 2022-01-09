@@ -1,0 +1,347 @@
+{% extends 'navbarcover.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <br>
+    <br>
+    <br>
+    <h1>Application Form Cover Sheet </h1>
+    <style>
+        .button {
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+        .button1 {background-color: #e64626;}
+        
+        </style>
+        <body>
+            <form method = "POST" action="">
+                {% csrf_token %} 
+                <fieldset>
+                    <legend> <strong>Application Form </strong></legend>
+                    <h3> Complete the details on this tab, the questions on the questionnaire tab and upload study documents (e.g. Participant information statements, 
+                        consent forms, questionnaires and interview questions) in the document tab. Once complete press the submit button.
+                    </h3>
+                    <h4>PLEASE NOTE THAT STUDENTS CANNOT BE THE CHIEF INVESTIGATOR.
+                    </h4>
+                    <h4>PLEASE DO NOT ADD THE CHIEF INVESTIGATION TO THE INTERNAL INVESTIGATOR LIST.
+                    </h4>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><strong> Summary</strong></legend>
+                    <!--<form action="" method = 'POST'>-->
+                    <!--<form method = 'POST' action="/coversheet.html" >-->
+
+                        <label for="summary">
+                            {% for question in cover %}
+                                {% if question.question_num == 1001%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="summary" name="summary" rows="8" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1001%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.summary }}-->
+                        <br>
+                    <!--</form>-->
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><strong> Protocol Title </strong></legend>
+                    <!--<form method = 'POST' action="/coversheet.html" >-->
+                        <label for="protocol">
+                            {% for question in cover %}
+                                {% if question.question_num == 1002%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="protocol" name="protocol" rows="2" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1002%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.protocol }}-->
+                        <br>
+                    <!--</form>-->
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><strong> Chief Investigator Details </strong></legend>
+                    <!--<form method = 'POST' action="/coversheet.html" >-->
+                        <label for="investigatorname"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1003%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="investigatorname" name="investigatorname" rows="1" cols="50">{% for coverquestion in cover %}{% if coverquestion.question_num == 1003%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.investigatorname }}-->
+                        <br>
+                        <label for="investigatorid"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1004%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="investigatorid" name="investigatorid" rows="1" cols="50">{% for coverquestion in cover %}{% if coverquestion.question_num == 1004%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.investigatorid }}-->
+                        <br>
+                        <label for="center"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1005%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="center" name="center" rows="1" cols="50">{% for coverquestion in cover %}{% if coverquestion.question_num == 1005%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.center }}-->
+                        <br>
+                        <label for="role"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1006%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <select id="role" name="role">
+                            {% for coverquestion in cover %}
+                                {% if coverquestion.question_num == 1006%}
+                                    {% for coveranswers in coversheetanswers %}
+                                        {% if coveranswers.question_id == coverquestion%}
+                                            {% if coveranswers.text == "chief investigator" %}
+                                                <option value="chief investigator" selected> chief investigator </option>
+                                                <option value="others"> others </option>
+                                            {% endif %}
+                                            {% if coveranswers.text == "others" %}
+                                                <option value="chief investigator"> chief investigator </option>
+                                                <option value="others" selected> others </option>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                        </select>
+                        <!--{{ form.role }}-->
+                        <br>
+                    <!--</form>-->
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><strong> Internal Investigators </strong></legend>
+                    <!--<form method = 'POST' action="/coversheet.html" >-->
+                        <label for="otherinternalinvestigators">
+                            {% for question in cover %}
+                                {% if question.question_num == 1007%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <select id ="otherinternalinvestigators" name = "otherinternalinvestigators">
+                            {% for coverquestion in cover %}
+                                {% if coverquestion.question_num == 1007%}
+                                    {% for coveranswers in coversheetanswers %}
+                                        {% if coveranswers.question_id == coverquestion%}
+                                            {% if coveranswers.text == "No" %}
+                                                <option value="Yes"> Yes </option>
+                                                <option value="No" selected> No </option>
+                                            {% endif %}
+                                            {% if coveranswers.text == "Yes" %}
+                                                <option value="Yes" selected> Yes </option>
+                                                <option value="No" > No </option>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <!--{{ form.otherinternalinvestigators }}-->
+                        <br>
+                        <label for="internalinvestigatorsnumber"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1008%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea type="number" id="internalinvestigatorsnumber" name="internalinvestigatorsnumber" rows="1" cols="4" >{% for coverquestion in cover %}{% if coverquestion.question_num == 1008%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                    
+                        <!--{{ form.internalinvestigatorsnumber }}-->
+                        <br>
+                    <!--</form>-->
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><strong> External Investigators </strong></legend>
+                    <!--<form method = 'POST' action="/coversheet.html" >-->
+                        <label for="otherexternalinvestigators">
+                            {% for question in cover %}
+                                {% if question.question_num == 1009%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <select id ="otherexternalinvestigators" name = "otherexternalinvestigators">
+                            {% for coverquestion in cover %}
+                                {% if coverquestion.question_num == 1009%}
+                                    {% for coveranswers in coversheetanswers %}
+                                        {% if coveranswers.question_id == coverquestion%}
+                                            {% if coveranswers.text == "No" %}
+                                                <option value="Yes"> Yes </option>
+                                                <option value="No" selected> No </option>
+                                            {% endif %}
+                                            {% if coveranswers.text == "Yes" %}
+                                                <option value="Yes" selected> Yes </option>
+                                                <option value="No" > No </option>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                        </select>
+                        <!--{{ form.otherexternalinvestigators }}-->
+                        
+                        <br>
+                        <label for="externalinvestigatorsnumber"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1010%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea type="number" id="externalinvestigatorsnumber" name="externalinvestigatorsnumber" rows="1" cols="4" >{% for coverquestion in cover %}{% if coverquestion.question_num == 1010%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.externalinvestigatorsnumber }}-->
+                        <br>
+                    <!--</form>-->
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><strong> External Ethics Approval </strong></legend>
+                    <!--<form method = 'POST' action="/coversheet.html" >-->
+                        <label for="responsible"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1011%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="responsible" name="responsible" rows="1" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1011%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.responsible }}-->
+                        <br>
+                        <label for="currentstate"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1012%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="currentstate" name="currentstate" rows="1" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1012%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.currentstate }}-->
+                        <br>
+                        <label for="HRECname"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1013%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="HRECname" name="HRECname" rows="1" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1013%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.HRECname }}-->
+                        <br>
+                        <label for="action"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1014%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="action" name="action" rows="3" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1014%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.action }}-->
+                        <br>
+                    <!--</form>-->
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><strong>Contracts and Grants </strong></legend>
+                    <!--<form method = 'POST' action="/coversheet.html" >-->
+                        <label for="title"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1015%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="title" name ="title" rows="1" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1015%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.title }}-->
+                        <br>
+                        <label for="contractaction"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1016%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="contractaction" name="contractaction" rows="3" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1016%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.contractaction }}-->
+                    <!--</form>-->
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend><strong>Other Relevant Details</strong></legend>
+                    <!--<form method = 'POST' action="/coversheet.html" >-->
+                        <label for="otherrelevantdetails"> 
+                            {% for question in cover %}
+                                {% if question.question_num == 1017%}
+                                    <font>{{ question.text }}</font>
+                                {% endif %}
+                            {% endfor %}
+                        </label>
+                        <br>
+                        <textarea id="otherrelevantdetails" name ="otherrelevantdetails" rows="8" cols="150">{% for coverquestion in cover %}{% if coverquestion.question_num == 1017%}{% for coveranswers in coversheetanswers %}{% if coveranswers.question_id == coverquestion%}{{ coveranswers.text }}{% endif %}{% endfor %}{% endif %}{% endfor %}</textarea>
+                        <!--{{ form.otherrelevantdetails }}-->
+                        <br>
+                    <!--</form>-->
+                </fieldset>
+                <h2><strong>Please navigate to Questionnaire tab</strong></h2>
+                <h3><strong>You have now completed the main details part of the form. Please complete questions
+                    in the questionnaire tab and upload documents for review in the documents tab before submitting the form.
+                </strong></h3>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;
+                 
+                <input type="submit"  value="Save" class="button button1" name=save></input> 
+ 
+            </form>
+
+        </body>
+
+</html>
+{% endblock %}

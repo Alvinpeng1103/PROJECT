@@ -1,0 +1,120 @@
+* {
+    font-family: sans-serif;
+}
+
+font {
+    font-family: sans-serif;
+    margin-left: 0px;
+    background: #f4f4f4;
+}
+
+form {
+    position: relative;
+    margin-left: 0px;
+    margin-top: 10px;
+    background: #f4f4f4;
+}
+
+/* The sidebar menu */
+
+.sidenav {
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 150px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) position: fixed;*/
+    /*position: -webkit-sticky;
+    position: sticky;*/
+    top: 150px;
+    z-index: 1;
+    /* Stay on top * z-index: 0; /
+    /* Stay at the top top: 150px;*/
+    background-color: white;
+    /* white */
+    overflow-x: hidden;
+    /* Disable horizontal scroll overflow: auto; */
+    padding-top: 20px;
+}
+
+/* The navigation menu links */
+
+.sidenav a {
+    padding: 10px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.906);
+    display: block;
+}
+
+/*.sidenav a:before {
+    color: green;
+    content: "\2713\0020";
+}*/
+
+.sidenav a:active {
+    background-color: rgb(88, 88, 88);
+}
+
+/* When you mouse over the navigation links, change their color */
+
+.sidenav a:hover {
+    color: rgb(160, 160, 160);
+}
+
+/* Style page content */
+
+.questions {
+    display: block;
+    height: auto;
+    width: 88%;
+    border: 2.5px solid #424242;
+    background-color: #F4F4F4;
+    padding: 2% 5% 2% 5%;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-top: 3%;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+h1 {
+    text-align: center;
+}
+
+.Completed {
+    width: 115px;
+    height: 41px;
+    background: #f4f4f4;
+}
+
+.save-item1 {
+    text-align: center;
+}
+
+.save-button {
+    color: #ffffff;
+    background: #e64626;
+    border: 0em;
+    height: 2.5em;
+    width: 6em;
+}
+
+.save-button:hover {
+    background-color: rgb(88, 88, 88);
+}
+
+.save-button:active {
+    background-color: rgb(88, 88, 88);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

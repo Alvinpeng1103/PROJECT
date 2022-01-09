@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- add stylesheet -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'welcome/style.css' %}">
+
+    <title>Qualifier Welcome</title>
+</head>
+
+<body>
+    <div class="grid-container">
+
+        <div class="grid-container2">
+
+            <div class="grid-item grid-item1">
+                <h1>Welcome to the University of Sydney Qualifier Questionnaire</h1>
+            </div>
+
+            <p>This application is for low risk submissions only. Any research that can lead to physical, psychological, social, economic or legal harm to an individual is considered high risk. If your application could be deemed high risk, please submit an application to <a href="https://irma.sydney.edu.au" target="_blank">https://irma.sydney.edu.au</a>.
+                The following questionnaire will determine whether your study is appropriate for this platform.</p>
+            <p>
+                If you experience any techincal difficulties, please do not hesitate to contact Research Support using the details below:
+                <span>
+                    <ul>
+                        <li>Phone: +61 2 8627 8183</li>
+                        <li>Email: research.support@sydney.edu.au</li>
+                    </ul>
+                </span>
+            </p>
+            <div class="grid-item grid-item6">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="grid-item grid-item7" value="Next" id="next" name="next">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}

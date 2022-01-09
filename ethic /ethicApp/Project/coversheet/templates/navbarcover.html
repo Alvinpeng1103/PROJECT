@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'coversheet/navbarcoverstyle.css' %}">
+
+    {%block others %}{% endblock %}
+
+    {%block js %}{% endblock %}
+</head>
+
+
+<body>
+    <nav id="navigation">
+        <div class="logo">
+            <img src="{% static 'coversheet/usyd.png' %}" alt="Logo" style="background-color: #cd4c27;">
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li style="float:right"><a href="{% url 'logout' %}" name= 'Logout'>Logout</a></li>
+                <li style="float:right"><a href="{% url 'editprofile' %}" name= 'Profile'>Profile</a></li>
+                <li style="float:right"><a href="{% url 'managelist' %}" name = 'Home'>Home</a></li>
+            </ul>
+        </div>
+    </nav>
+    <nav>
+        <div class="menu2">
+            <ul>
+                <div style="float:right" class="dropdown2">
+                    <button class="dropbtn" name = "PCF">Participant Consent Form 
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown2-content">
+                        <a name = "PCF_create" href="{% url 'new_PCF' application_id %}">Create Form</a>
+                        <a name = "PCF_view" href="{% url 'consent_form' application_id %}">View Form</a>
+                    </div>
+                </div>  
+                <div style="float:right" class="dropdown1">
+                    <button class="dropbtn" name = "PIS">Participant Information Statement 
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown1-content">
+                        <a name= "PIS_create" href="{% url 'new_PIS' application_id %}">Create Statement</a>
+                        <a name= "PIS_view" href="{% url 'information_sheet' application_id %}">View Statement</a>
+                    </div>
+                </div> 
+                <!--<li style="float:right" name= "cover"><a href="{% url 'coversheet' application_id %}">Attach</a></li>-->
+                <!--<li style="float:right" name= "cover"><a href="{% url 'coversheet' application_id %}">Upload</a></li>-->
+                <li style="float:right" name= "ethics"><a href="{% url 'questionnaire' application_id %}">Ethics Questionnaire</a></li>
+                <li style="float:right" name= "cover"><a href="{% url 'coversheet' application_id %}">Cover Sheet</a></li>
+                <!--<li style="float:right" name= "cover"><a href="{% url 'coversheet' application_id %}">Attach</a></li>-->
+                    
+            </ul>
+        </div>
+    </nav>
+
+    <div id="contents">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

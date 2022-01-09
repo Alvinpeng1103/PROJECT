@@ -1,0 +1,64 @@
+{% include 'top.html' %} 
+    <div class="content">
+        <h1 class="title">Search Songs</h1>
+        <script type="text/javascript">
+            
+            var data_name_list= '{{ songs_name| tojson }}';
+            data_name_list = data_name_list.substring(1).slice(0,-1).replace(/"/g, "").split(",");
+
+            var n = data_name_list.length;
+
+            function ac(value) { 
+
+                document.getElementById('suggestion-list').innerHTML = ''; 
+                    
+                l=value.length; 
+                if(l==0){
+                    return;
+                }
+                //input query length 
+                for (var i = 0; i<n; i++) { 
+                    if(((data_name_list[i].toLowerCase()).indexOf(value.toLowerCase()))>-1) 
+                    { 
+                        
+                        var node = document.createElement("option"); 
+                        var val = document.createTextNode(data_name_list[i]); 
+                        node.appendChild(val); 
+
+                        document.getElementById("suggestion-list").appendChild(node); 
+                    } 
+                } 
+            }
+        
+        </script>
+        <form class="Search" method="POST" action="{{url_for('search_songs')}}">
+            <input type="text" list="suggestion-list" id="userText" oninput="ac(this.value)" name="searchterm" placeholder="Song" autofocus required>
+            <datalist id="suggestion-list">
+            </datalist>
+            <button class="flat" type="submit">Search</button>
+        </form>
+            {% if songs | length > 0 %}
+                <!-- All Songs -->
+                <table class="styled">
+                    <thead>
+                        <tr>
+                            <td>Song ID</td>
+                            <td>Song Name</td>
+                            <td>Artists</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instance in songs %}
+                            <!-- Each row is a link to each individual tvshow page -->
+                            <tr class="clickable-tr" data-href="{{ url_for('single_song', song_id=instance.song_id)}}">
+                                <td style="text-align: center">{{ instance.song_id }}</td>
+                                <td>{{instance.song_title}}</td>
+                                <td>{{instance.artists}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+        
+                </table>
+            {% endif %}
+    </div>
+{% include 'bottom.html'%}

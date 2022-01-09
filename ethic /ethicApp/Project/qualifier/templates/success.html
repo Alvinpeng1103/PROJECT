@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- add stylesheet -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'failure/style.css' %}">
+
+    <title>Qualifier Success</title>
+</head>
+
+<body>
+    <div class="grid-container">
+
+        <div class="grid-container2">
+
+            <div class="grid-item grid-item1">
+                <h1>Success!</h1>
+            </div>
+
+            <p>
+                Your application has been qualified as low-risk. Please click the button below to proceed with your application.
+            </p>
+            <br>
+            <div class="grid-item grid-item6">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="grid-item grid-item7" value="Next" id="next" name="next">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}

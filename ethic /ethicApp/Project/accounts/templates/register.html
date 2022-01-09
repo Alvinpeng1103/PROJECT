@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'register/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script type="text/javascript" src="{% static 'register/show-hide.js' %}"></script>
+
+    <title>Register</title>
+</head>
+
+<body>
+    <div class="grid-container">
+        <h1 id="signup">Sign Up</h1>
+        <form method="POST" actions="" class="form" name="register">
+            {% csrf_token %}
+
+            <label for="first_name" class="formlabel">First name</label>
+            <br>
+            <input type="text" id="first_name" class="formbox" name="first_name">
+
+            {% if form.errors %}
+            <span class="invalids" id="invFN">first name must be 150 characters or fewer</span>
+            {% endif %}
+            <br>
+            <label for="last_name" class="formlabel">Last name</label>
+            <br>
+            <input type="text" id="last_name" class="formbox" name="last_name">
+            {% if form.errors %}
+            <span class="invalids">last name must be 150 characters or fewer</span>
+            {% endif %}
+            <br>
+            <label for="username" class="formlabel">Username</label>
+            <br>
+            <input type="text" id="username" class="formbox" name="username">
+            {% if form.errors %}
+            <span class="invalids">username must be 150 characters or fewer, must contain letters, digits and @/./+/-/_ only</span>
+            {% endif %}
+            <br>
+            <label for="email" class="formlabel">Email address</label>
+            <br>
+            <input type="text" id="email" class="formbox" name="email">
+            {% if form.errors %}
+            <span class="invalids">email must be in email format e.g. example@example.com</span>
+            {% endif %}
+            <br>
+            <label for="password1" class="formlabel">Password</label>
+            <br>
+            {% if form.errors %}
+            <p class="invalids pass">your password can’t be too similar to your other personal information, must contain at least 8 characters, can’t be a commonly used password and can’t be entirely numeric</p>
+            {% endif %}
+            <div class="input-box">
+                <input type="password" id="password1" class="formbox" name="password1">
+                <span class="eye" onclick="showHide()">
+                    <i class="fa fa-eye" id="hide1" aria-hidden="true"></i>
+                    <i class="fa fa-eye-slash" id="hide2" aria-hidden="true"></i>
+                </span>
+            </div>
+
+
+
+            <label for="password2" class="formlabel">Password confirmation</label>
+            <br>
+            <div class="input-box">
+                <input type="password" id="password2" class="formbox" name="password2">
+                <span class="eye" onclick="showHide2()">
+                    <i class="fa fa-eye" id="hide3" aria-hidden="true"></i>
+                    <i class="fa fa-eye-slash" id="hide4" aria-hidden="true"></i>
+                </span>
+            </div>
+
+            <input type="submit" value="Register" id="register" name="Register">
+        </form>
+        <a href="{% url 'login' %}">Go back</a>
+    </div>
+</body>
+
+</html>

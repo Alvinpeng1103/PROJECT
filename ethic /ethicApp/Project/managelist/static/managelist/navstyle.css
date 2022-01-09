@@ -1,0 +1,49 @@
+* {
+    font-family: sans-serif;
+}
+
+#navigation {
+    background-color: #cd4c27;
+    display: grid;
+    grid-template-columns: [logo] 70% [nav] auto;
+    
+
+}
+.logo img{
+    height: 80px;
+}
+.menu {
+    width: 100%;
+    grid-column-start: 2;
+    grid-column-end:3;
+    
+    
+    
+}
+
+    
+.menu ul {
+    
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow: hidden;
+    
+    
+}
+
+
+.menu ul li a {
+    display: block;
+    color: white;
+    padding: 35px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 36;
+  }
+
+.menu ul li a:hover{
+    background-color: rgb(210, 50, 18);
+ }
+
+ 

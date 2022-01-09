@@ -1,0 +1,18 @@
+#  Template python-build
+
+#  This template allows you to validate your python code.
+#  The workflow allows running tests and code linting on the default branch.
+   
+image: python:3.8
+
+pipelines:
+  default:
+    - step:
+        script:
+          - python -m pip install --upgrade pip
+          - pip install django
+          - pip install reportlab
+          - pip install xhtml2pdf
+          - pip install django-ckeditor
+          - cd Project
+          - python manage.py test

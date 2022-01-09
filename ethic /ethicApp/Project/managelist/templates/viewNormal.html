@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Questionnaire</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+        
+        
+        {% load static %}
+        <script type="text/javascript" src="{% static 'view/test.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'view/style.css' %}">
+
+
+        
+    </head>
+    <body>
+      <br>
+      <div class="questions">
+          <form method = "POST" id = "pdf">
+            {% csrf_token %} 
+              <a name = "SectionA"></a>
+              
+            <h1>Section A</h1>
+              <h4>Section A is designed to distinguish between staff and student projects. In addition, this Section also seeks to identify projects that have been approved by other ethics committees.</h4>
+              {% for question in que %}
+                {% for ans in answers %}
+                  {% if question == ans.question_id and a_id == ans.application_id%}
+                    {% if question.question_num == 101 and ans.short_answer_text == "Yes"%}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                      {% for q in que %}
+                        {% for a in answers %}
+                          {% if q == a.question_id and a_id == a.application_id%}
+                            {% if q.question_num == 102%}
+                              <font>Question: {{ q.text }}</font><br><br>
+                              <font>Answer: {{a.short_answer_text}}</font><br><br>
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                    {% elif question.question_num == 101 and ans.short_answer_text == "No"%}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+
+              {% for question in que %}
+                {% for ans in answers %}
+                  {% if question == ans.question_id and a_id == ans.application_id%}
+                    {% if question.section_name == "A" and question.question_num > 102%}
+                    <font>Question: {{ question.text }}</font><br><br>
+                    <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+
+              <a name = "SectionB"></a>
+              <h1>Section B</h1>
+              <h4>Section B is designed to determine whether your study falls within the National Statements definition of low or negligible risk. Throughout this section, you may be asked specific additional questions where you indicate that your study involves particular participant and/ or project types. Please note that the option Possible Recruitment with reference to specific participant populations indicates that these people MAY be recruited into your study, but are not the specific population of interest. If this population is the focus of your study, you should select Yes.
+                  Please answer the following questions</h4>
+              
+                {% for question in que %}
+                {% if question.section_name == "B"%}
+                  {% for ans in answers %}
+                    {% if question == ans.question_id and a_id == ans.application_id%}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                {% endfor %}
+              
+
+              <a name = "SectionC"></a>
+              <h1>Section C</h1>
+              <h4>The questions in Section C are designed to determine whether there are any conflicts of interests which may
+                compromise the research process.</h4>
+              
+                {% for question in que %}
+                {% if question.section_name == "C"%}
+                  {% for ans in answers %}
+                    {% if question == ans.question_id and a_id == ans.application_id%}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+              <a name = "SectionD"></a>
+              <h1>Section D</h1>
+              <h4>The questions in Section D are specifically directed at the consent process.</h4>
+              
+              {% for question in que %}
+              {% if question.section_name == "D"%}
+                {% if question.question_num == 604%}
+                  {% for ans in answers %}
+                    {% if question == ans.question_id and a_id == ans.application_id%}
+                      {% if ans.short_answer_text == "Yes" %}
+                        <font>Question: {{ question.text }}</font><br><br>
+                        <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                        {% for q in que %}
+                        {% for a in answers %}
+                          {% if q == a.question_id and a_id == a.application_id%}
+                            {% if q.question_num == 605 %}
+                              <font>{{ q.text }}</font><br><br>
+                              <font style="color:red">Template Answer: {{a.short_answer_text}}</font><br><br>
+                              <font>Researcher Answer: {{a.researcher_answer_text}}</font><br><br>
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                      {% else %}
+                        <font>Question: {{ question.text }}</font><br><br>
+                        <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {% for ans in answers %}
+                  {% if question == ans.question_id and a_id == ans.application_id%}
+                    {% if question.question_num == 605 %}
+                    {% elif question.is_short_answer == 1 %}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font style="color:red">Template Answer: {{ans.short_answer_text}}</font><br><br>
+                      <font>Researcher Answer: {{ans.researcher_answer_text}}</font><br><br>
+                    {% else %}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                    {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endif %}
+              {% endfor %}
+                
+
+
+              <a name = "SectionE"></a>
+              <h1>Section E</h1>
+              <h4>The questions in Section E relate to how you will protect participants privacy and the confidentiality of their
+                information in your research project.</h4>
+              {% for question in que %}
+              {% if question.section_name == "E"%}
+                {% if question.question_num == 715%}
+                {% for ans in answers %}
+                  {% if question == ans.question_id and a_id == ans.application_id%}
+                    {% if ans.short_answer_text == "Yes" %}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                      {% for q in que %}
+                      {% for a in answers %}
+                        {% if q == a.question_id and a_id == a.application_id%}
+                          {% if q.question_num == 716 %}
+                            <font>Question: {{ q.text }}</font><br><br>
+                            <font style="color:red">Template Answer: {{a.short_answer_text}}</font><br><br>
+                            <font>Researcher Answer: {{a.researcher_answer_text}}</font><br><br>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                      {% endfor %}
+                    {% else %}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% elif question.question_num == 701 %}
+
+                {% for ans in answers %}
+                {% if question == ans.question_id and a_id == ans.application_id%}
+                  {% if ans.short_answer_text == "Yes" %}
+                    <font>Question: {{ question.text }}</font><br><br>
+                    <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                    {% for q in que %}
+                    {% for a in answers %}
+                      {% if q == a.question_id and a_id == a.application_id%}
+                        {% if q.question_num == 702 %}
+                          <font>Question: {{ q.text }}</font><br><br>
+                          <font>Answer: {{a.short_answer_text}}</font><br><br>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                  {% else %}
+                    <font>Question: {{ question.text }}</font><br><br>
+                    <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% else %}
+                {% for ans in answers %}
+                {% if question == ans.question_id and a_id == ans.application_id%}
+                  {% if question.question_num == 702 %}
+                  {% elif question.question_num == 716 %}
+                  {% elif question.is_short_answer == 1 %}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font style="color:red">Template Answer: {{ans.short_answer_text}}</font><br><br>
+                      <font>Researcher Answer: {{ans.researcher_answer_text}}</font><br><br>
+                  {% else %}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                  {% endif %}
+                {% endif %}
+                {% endfor %}
+              {% endif %}    
+                      
+              {% endif %}
+              {% endfor %}
+              
+
+
+              <a name = "SectionF"></a>
+              <h1>Section F</h1>
+              <h4>The questions in Section F concern risks to both participants and others connected with the study.</h4>
+              {% for question in que %}
+                {% if question.section_name == "F"%}
+                  {% for ans in answers %}
+                    {% if question == ans.question_id and a_id == ans.application_id%}
+                      {% if question.is_short_answer == 1 %}
+                        <font>Question: {{ question.text }}</font><br><br>
+                        <font style="color:red">Template Answer: {{ans.short_answer_text}}</font><br><br>
+                        <font>Researcher Answer: {{ans.researcher_answer_text}}</font><br><br>
+                      {% else %}
+                        <font>Question: {{ question.text }}</font><br><br>
+                        <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+              <a name = "SectionG"></a>
+              <h1>Section G</h1>
+              <h4>The questions in Section G concern details of the research study. Please answer the following questions.</h4>
+              {% for question in que %}
+                {% if question.section_name == "G"%}
+                  {% if question.question_num == 905 %}
+                  {% else %}
+                    {% for ans in answers %}
+                      {% if question == ans.question_id and a_id == ans.application_id%}
+                      {% if question.is_short_answer == 1 %}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font style="color:red">Template Answer: {{ans.short_answer_text}}</font><br><br>
+                      <font>Researcher Answer: {{ans.researcher_answer_text}}</font><br><br>
+                    {% else %}
+                      <font>Question: {{ question.text }}</font><br><br>
+                      <font>Answer: {{ans.short_answer_text}}</font><br><br>
+                    {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endif %}
+                {% endfor %}
+            </form>
+      </div>
+    </body>
+</html>

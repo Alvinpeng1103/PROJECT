@@ -1,0 +1,41 @@
+.grid-container {
+    display: grid;
+    font-family: sans-serif;
+    height: auto;
+    width: 100vw;
+    justify-content: center;
+}
+
+.form-container {
+    display: grid;
+    font-family: sans-serif;
+    height: auto;
+    width: 1000px;
+    padding: 0px 20px 20px 20px;
+    background: #F4F4F4;
+    margin-top: 25px;
+}
+
+.middle {
+    justify-self: center;
+}
+
+p {
+    width: 835px;
+}
+
+/* styling for button */
+
+.button {
+    text-align: center;
+}
+
+input {
+    color: #ffffff;
+    background: #e64626;
+    border: 1px;
+    height: 30px;
+    width: 80px;
+}
+
+/* end */

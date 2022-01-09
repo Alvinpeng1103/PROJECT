@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- add stylesheet -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'failure/style.css' %}">
+
+    <title>Qualifier Failure</title>
+</head>
+
+<body>
+    <div class="grid-container">
+
+        <div class="grid-container2">
+
+            <div class="grid-item grid-item1">
+                <h1>Indication of High Risk Detected</h1>
+            </div>
+
+            <p>
+                Unfortunately, your application did not qualify as low risk. Please go to <a href="https://irma.sydney.edu.au" target="_blank">https://irma.sydney.edu.au</a> to proceed with your application instead.
+                Click the button below to go back to the Manage Applications page.
+            </p>
+            <br>
+            <div class="grid-item grid-item6">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="grid-item grid-item7" value="Go Back" id="back" name="back">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}

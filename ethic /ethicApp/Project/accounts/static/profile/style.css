@@ -1,0 +1,83 @@
+.grid-container {
+    display: grid;
+    width: 100vw;
+    height: auto;
+    justify-content: center;
+    align-content: center;
+    font-family: sans-serif;
+    
+}
+
+.grid-container2 {
+    display: grid;
+    background-color: #F4F4F4;
+    color: black;
+    width: 400px;
+    height: 460px;
+    justify-content: center;
+    align-content: center;
+    border: 1px solid #424242;
+}
+
+span {
+    font-size: 24px;
+    justify-self: center;
+    margin: 30px 0px 30px 0px;
+}
+
+.grid-item1, .grid-item3, .grid-item5, .grid-item7{
+    box-sizing: border-box;
+    width: 225px;
+    padding: 3px;
+
+}
+
+.grid-item2, .grid-item4, .grid-item6, .grid-item8{
+    box-sizing: border-box;
+    border: 1px solid #424242;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    padding: 6px 8px 6px 8px;
+    height: 40px;
+    width: 225px;
+}
+
+.grid-item2 { 
+    background-color: #D3D3D3;
+}
+
+.button, .links {
+    text-align: center;
+}
+
+.grid-item9 {
+    color:#ffffff;
+    background:#e64626;
+    border: 1px;
+    height: 33px;
+    width: 80px;
+}
+
+.grid-item9:hover {
+    background-color: rgb(210, 50, 18);
+}
+
+.grid-item9:active{
+    background-color: rgb(190, 30, 0);
+    cursor: pointer;
+}
+
+.links {
+    font-size: 12px;
+    justify-self: center;
+    margin: 0px 0px 20px 0px;
+}
+
+.reset:hover {
+    color: #f64626;
+}
+
+
+
+
+

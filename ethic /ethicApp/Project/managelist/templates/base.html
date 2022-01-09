@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'managelist/navstyle.css' %}">
+
+    {%block others %}{% endblock %}
+
+    {%block js %}{% endblock %}
+</head>
+
+
+<body>
+    <nav id="navigation">
+        <!-- image set up -->
+        <div class="logo">
+            <img src="{% static 'managelist/usyd.png' %}" alt="Logo" style="background-color: #cd4c27;">
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li style="float:right"><a name="Logout" href="{% url 'logout' %}">Logout</a></li>
+                <li style="float:right"><a name="Profile" href="{% url 'editprofile' %}">Profile</a></li>
+                <li style="float:right"><a name="Home" href="{% url 'managelist' %}">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="contents">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

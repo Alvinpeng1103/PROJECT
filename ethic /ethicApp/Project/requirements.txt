@@ -1,0 +1,3 @@
+Django==3.2.7
+django-ckeditor
+xhtml2pdf==0.2.5

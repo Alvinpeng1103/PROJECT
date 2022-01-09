@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Trigger all your test cases with this script
+
+
+echo -e -n '\x00\x00\x25\x42' >> test1.x2017
+
+./vm_x2017 test1.x2017

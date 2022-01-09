@@ -1,0 +1,133 @@
+
+body{
+
+    background-color:#F4F4F4;
+}
+
+
+.container{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    ". Title Title ."
+    "search . . new"
+    "app_table app_table app_table app_table";
+}
+
+.item-1 {
+    grid-area: Title;
+    justify-self: center;
+  }
+.item-2 {
+    grid-area: search;
+    align-self: end;
+    margin-bottom: 20px;
+  }
+
+
+.item-3 {
+    grid-area: new;
+    justify-self: end;
+    margin-bottom: 20px;
+  }
+.item-4 {
+    grid-area: app_table;
+  }
+
+.item-2 #search{
+
+  font-size:20px;
+}
+
+
+.applicationlist{
+
+    border-collapse: collapse;
+    font-size: 20px;
+    min-width: 100%;
+    overflow: hidden;
+}
+
+thead{
+
+    background-color: #3e3d3e;
+    color: #ffffff;
+    text-align: left;
+}
+
+.tbody{
+
+    border-bottom: 1px solid #dddddd;
+}
+
+
+.Operations{
+  display:inline-block;
+  position:absolute;
+  
+}
+
+.Operations div{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.links{
+  background-color: #f8f7f8;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.threedots{
+  cursor: pointer;
+}
+
+
+
+.Operations div p{
+
+  font-size: 24px;
+  padding:0;
+  margin: 0;
+}
+
+.Operations a{
+  
+  display: block;
+  color: black;
+  padding: 10px, 10px;
+  text-decoration: none;
+
+}
+
+.links a:hover{
+
+  background-color: #f1f1f1
+}
+
+
+
+
+.start_new_app_button {
+
+    color:#ffffff;
+ 
+    background:#e64626;
+ 
+    border: 0em;
+ 
+    height: 2.5em;
+ 
+    width: 11em;
+ 
+ }
+ .start_new_app_button:hover{
+
+    background-color: rgb(210, 50, 18);
+    cursor:pointer;
+ }
+
+ a:hover{
+    background-color: rgb(210, 50, 18);
+ }

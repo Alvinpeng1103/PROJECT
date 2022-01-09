@@ -1,0 +1,41 @@
+{% extends 'navbarcover.html' %}
+<!-- Need to extend questionnaire navbar -->
+
+{% block content %}
+
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/style.css' %}">
+</head>
+
+<!-- Create grid container div to encapsulate all data on the page -->
+<div class="grid-container">
+
+    <!-- Create another grid container to encapsulate the form -->
+    <div class="form-container">
+
+        <h1 class="middle">Create Participant Information Statement</h1>
+
+        <p class="middle">Please change and adapt the questions in the following template to suit your project.
+            Make sure to provide answers to those questions underneath.</p>
+
+
+        <form class="middle" action="" form method="POST">
+            {% csrf_token %}
+
+            {{ form.media }}
+            {{ form.as_p }}
+
+            <!--<textarea id="PIS" name="pis" rows="18" cols="150">{{ form.media }}{{ pis_rt }}</textarea>
+    <input type="submit"  value="Save" class="button button1" name=save></input> 
+    -->
+            <div class="button" name= "submit">
+                <input type="submit">
+            </div>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}

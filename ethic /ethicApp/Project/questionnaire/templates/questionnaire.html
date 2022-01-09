@@ -1,0 +1,1273 @@
+{% extends 'navbarcover.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Questionnaire</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+  {% load static %}
+  <script type="text/javascript" src="{% static 'questionnaire/test.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'questionnaire/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'questionnaire/templatestyle.css' %}">
+
+
+
+</head>
+
+<body>
+  <br>
+  <br>
+  <div class="sidenav">
+    <!-- Left navigation bar  -->
+    <a href="#SectionA">SectionA Distinguish users</a>
+    <a href="#SectionB">SectionB Risk Evaluation</a>
+    <a href="#SectionC">SectionC Conflicts of interest</a>
+    <a href="#SectionD">SectionD Consent process</a>
+    <a href="#SectionE">SectionE Privary issue</a>
+    <a href="#SectionF">SectionF Concern risks</a>
+    <a href="#SectionG">SectionG Concern research study</a>
+  </div>
+  <div class="questions">
+    <form method="POST" action="" name="answer_question">
+      {% csrf_token %}
+      <!-- Section A of questionnaire  -->
+      <a name="SectionA"></a>
+
+      <h1>Section A</h1>
+      <h4>Section A is designed to distinguish between staff and student projects. In addition, this Section also seeks to identify projects that have been approved by other ethics committees.</h4>
+      {% for question in que %}
+      <!-- Pop out question1  -->
+      {% if question.question_num == 101%}
+      <font>{{ question.text }}</font>
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" id="button1" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button2" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" id="button1" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button2" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" id="button1" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button2" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% endif %}
+      {% endfor %}
+      <!-- Pop out answers1  -->
+      <div id="div1" style="display :none ;">
+        {% for question in que %}
+        {% if question.question_num == 102%}
+        <font>{{ question.text }}</font>
+        <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+          <span class="tooltiptext">{{question.tips}}</span>
+          <br>
+        </div>
+        <br>
+        
+
+        {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id %}
+        
+        {% if ans.short_answer_text == "Master" %}
+        <select name="{{question.question_num}}" , id="{{question.question_num}}">
+          <option value="Bachelor">Bachelor</option><br>
+          <option value = "Master" selected>Master</option><br>
+          <option value="Phd">Phd</option><br>
+        </select>
+        {% elif ans.short_answer_text == "Phd" %}
+        <select name="{{question.question_num}}" , id="{{question.question_num}}">
+          <option value="Bachelor">Bachelor</option><br>
+          <option value = "Master" >Master</option><br>
+          <option value="Phd" selected>Phd</option><br>
+        </select>
+        {% else %}
+        <select name="{{question.question_num}}" , id="{{question.question_num}}">
+          <option>Bachelor</option><br>
+          <option>Master</option><br>
+          <option>Phd</option><br>
+        </select>
+
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+      </div>
+      <script type="text/javascript">
+        $("#button1").click(function () {
+          $("#div1").show();
+        });
+        $("#button2").click(function () {
+          $("#div1").hide();
+        });
+        if (document.getElementById('button1').checked) {
+          $("#div1").show();
+        } else if (document.getElementById('button2').checked) {
+          $("#div1").hide();
+        }
+      </script>
+      {% endif %}
+      {% endfor %}
+
+      {% for question in que %}
+      {% if question.section_name == "A" and question.question_num > 102%}
+      <font>{{ question.text }}</font>
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% endif %}
+      {% endfor %}
+
+      <a name="SectionB"></a>
+      <!-- Section B of the questionnaire -->
+      <h1>Section B</h1>
+      <h4>Section B is designed to determine whether your study falls within the National Statements definition of low or negligible risk. Throughout this section, you may be asked specific additional questions where you indicate that your study involves particular participant and/ or project types. Please note that the option Possible Recruitment with reference to specific participant populations indicates that these people MAY be recruited into your study, but are not the specific population of interest. If this population is the focus of your study, you should select Yes.
+        Please answer the following questions</h4>
+
+      {% for question in que %}
+      {% if question.section_name == "B"%}
+      <font>{{ question.text }}</font>
+      <div style="margin-left:0px;" class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      <p></p>
+      {% endif %}
+      {% endfor %}
+
+
+      <a name="SectionC"></a>
+      <h1>Section C</h1>
+      <!-- Section C of the questionnaire -->
+      <h4>The questions in Section C are designed to determine whether there are any conflicts of interests which may
+        compromise the research process.</h4>
+
+      {% for question in que %}
+      {% if question.section_name == "C"%}
+      <font>{{ question.text }}</font>
+      <div style="margin-left:0px;" class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="{{question.question_num}}" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      <p></p>
+      {% endif %}
+      {% endfor %}
+
+
+      <a name="SectionD"></a>
+      <h1>Section D</h1>
+      <!-- Section D of the questionnaire -->
+      <h4>The questions in Section D are specifically directed at the consent process.</h4>
+
+      {% for question in que %}
+      {% if question.section_name == "D"%}
+      <!-- The question type is textarea -->
+      {% if question.is_short_answer == 1 %}
+
+      <!-- you can create a new array to store the question number , and use if statement  -->
+      {% if question.question_num == 601 or question.question_num == 602 %}
+
+
+      <font>{{question.text }}</font>
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+
+      <!-- template question segment -->
+      <div class="inspect">
+        <p style="color: red;">Guide: click the below button and choose the answer type, then click template answers in the textbox, it will automatically copy to the first textbox</p> 
+        <button type="button" class="show_button"> Template Answers </button>
+        
+
+        <!-- the data-varname is used to store the value in the html tags, style attribute is used for the display -->
+        <div class="hidden_text" data-status="hidden" style="display :none ;">
+          <button type="button" class="button think_aloud"> Think Aloud </button>
+
+          <button type="button" class="button crowed_source"> Crowd Sourced </button>
+
+          <button type="button" class="button lab_study"> Lab Study </button>
+
+
+
+          <div class="selection_box">
+
+            <div class="think_aloud_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "thinkaloud" %}
+              <p class="exemplar_p think_aloud_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="source_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "crowedsource" %}
+              <p class="exemplar_p source_txt_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="lab_study_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "labstudy" %}
+              <p class="exemplar_p lab_study_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        <br>
+
+        {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.short_answer_text == None %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;"></textarea>
+        {% else %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;">{{ans.short_answer_text}}</textarea>
+        {% endif %}{% endif %}
+        {% endfor %}
+
+      </div>
+
+      <!-- end of template question segment -->
+      <!-- second textarea segment -->
+      <p>Guide: Enter you own answers in the below textbox</p>
+      {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.researcher_answer_text == None %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8"></textarea>
+        
+        {% else %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8">{{ans.researcher_answer_text}}</textarea>
+        
+        {% endif %}{% endif %}
+        {% endfor %}
+      <!-- pop out question 2 -->
+      {% elif question.question_num == 605%}
+      <div id="div2" style="display :none ;">
+
+        <font>{{ question.text }}</font>
+        <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+          <span class="tooltiptext">{{question.tips}}</span>
+        </div>
+        <br>
+
+        <!-- template question segment -->
+        <div class="inspect">
+          <p style="color: red;">Guide: click the below button and choose the answer type, then click template answers in the textbox, it will automatically copy to the first textbox</p> 
+          <button type="button" class="show_button"> Template Answers </button>
+
+
+          <!-- the data-varname is used to store the value in the html tags, style attribute is used for the display -->
+          <div class="hidden_text" data-status="hidden" style="display :none ;">
+            <button type="button" class="button think_aloud"> Think aloud </button>
+
+            <button type="button" class="button crowed_source"> Crowed Source </button>
+
+            <button type="button" class="button lab_study"> Lab Study </button>
+
+
+
+            <div class="selection_box">
+
+              <div class="think_aloud_txt" data-status="hidden" style="display :none ;">
+                {% for answer in answers %}
+                {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "thinkaloud" %}
+                <p class="exemplar_p think_aloud_p"> {{answer.short_answer_text}} </p>
+                {% endif %}
+                {% endfor %}
+              </div>
+
+              <div class="source_txt" data-status="hidden" style="display :none ;">
+                {% for answer in answers %}
+                {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "crowedsource" %}
+                <p class="exemplar_p source_txt_p"> {{answer.short_answer_text}} </p>
+                {% endif %}
+                {% endfor %}
+              </div>
+
+              <div class="lab_study_txt" data-status="hidden" style="display :none ;">
+                {% for answer in answers %}
+                {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "labstudy" %}
+                <p class="exemplar_p lab_study_p"> {{answer.short_answer_text}} </p>
+                {% endif %}
+                {% endfor %}
+              </div>
+
+            </div>
+          </div>
+          <br>
+
+          {% for ans in answers %}
+          {% if question == ans.question_id and a_id == ans.application_id%}
+          {% if ans.short_answer_text == None %}
+          
+          <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;"></textarea>
+          {% else %}
+          
+          <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;">{{ans.short_answer_text}}</textarea>
+          {% endif %}{% endif %}
+          {% endfor %}
+
+        </div>
+
+        <!-- end of template question segment -->
+
+        <!-- second textarea segment -->
+        <p>Guide: Enter you own answers in the below textbox</p>
+        {% for ans in answers %}
+          {% if question == ans.question_id and a_id == ans.application_id%}
+          {% if ans.researcher_answer_text == None %}
+          <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8"></textarea>
+          
+          {% else %}
+          <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8">{{ans.researcher_answer_text}}</textarea>
+          
+          {% endif %}{% endif %}
+          {% endfor %}
+
+
+      </div>
+      <script type="text/javascript">
+        $("#button3").click(function () {
+          $("#div2").show();
+        });
+        $("#button4").click(function () {
+          $("#div2").hide();
+        });
+        if (document.getElementById('button3').checked) {
+          $("#div2").show();
+        } else if (document.getElementById('button4').checked) {
+          $("#div2").hide();
+        }
+      </script>
+      {% else %}
+
+      <font>{{question.text }}</font>
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+
+      <!-- template question segment -->
+      <div class="inspect">
+        <p style="color: red;">Guide: click the below button and choose the answer type, then click template answers in the textbox, it will automatically copy to the first textbox</p> 
+        <button type="button" class="show_button"> Template Answers </button>
+
+
+        <!-- the data-varname is used to store the value in the html tags, style attribute is used for the display -->
+        <div class="hidden_text" data-status="hidden" style="display :none ;">
+          <button type="button" class="button think_aloud"> Think aloud </button>
+
+          <button type="button" class="button crowed_source"> Crowed Source </button>
+
+          <button type="button" class="button lab_study"> Lab Study </button>
+
+
+
+          <div class="selection_box">
+
+            <div class="think_aloud_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "thinkaloud" %}
+              <p class="exemplar_p think_aloud_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="source_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "crowedsource" %}
+              <p class="exemplar_p source_txt_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="lab_study_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "labstudy" %}
+              <p class="exemplar_p lab_study_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        <br>
+
+        {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.short_answer_text == None %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;"></textarea>
+        {% else %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;">{{ans.short_answer_text}}</textarea>
+        {% endif %}{% endif %}
+        {% endfor %}
+
+      </div>
+
+      <!-- end of template question segment -->
+
+      <!-- second textarea segment -->
+      <p>Guide: Enter you own answers in the below textbox</p>
+      {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.researcher_answer_text == None %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8"></textarea>
+        
+        {% else %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8">{{ans.researcher_answer_text}}</textarea>
+        
+        {% endif %}{% endif %}
+        {% endfor %}
+
+      {% endif %}
+      {% else %}
+      {% if question.question_num == 604%}
+      <font>{{ question.text }}</font>
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      <br>
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" id="button3" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button4" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" id="button3" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button4" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" id="button3" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button4" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+
+      {% else %}
+      <!-- radio button question type -->
+      <font>{{ question.text }}</font>
+
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      <br>
+
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% endif %}
+
+      {% endif %}
+      <p></p>
+      {% endif %}
+      {% endfor %}
+
+      <a name="SectionE"></a>
+      <h1>Section E</h1>
+      <!-- Section E of the questionnaire -->
+      <h4>The questions in Section E relate to how you will protect participants privacy and the confidentiality of their
+        information in your research project.</h4>
+      {% for question in que %}
+      {% if question.section_name == "E"%}
+      
+      <!-- textare type of questions -->
+      {% if question.is_short_answer == 1 %}
+      <!-- pop out question 4 -->
+      {% if question.question_num == 716 %}
+      <div id="div4" style="display :none ;">
+
+        <font>{{ question.text }}</font>
+        <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+          <span class="tooltiptext">{{question.tips}}</span>
+        </div>
+        <br>
+
+        <!-- template question segment -->
+        <div class="inspect">
+          <p style="color: red;">Guide: click the below button and choose the answer type, then click template answers in the textbox, it will automatically copy to the first textbox</p> 
+          <button type="button" class="show_button"> Template Answers </button>
+
+
+          <!-- the data-varname is used to store the value in the html tags, style attribute is used for the display -->
+          <div class="hidden_text" data-status="hidden" style="display :none ;">
+            <button type="button" class="button think_aloud"> Think aloud </button>
+
+            <button type="button" class="button crowed_source"> Crowed Source </button>
+
+            <button type="button" class="button lab_study"> Lab Study </button>
+
+
+
+            <div class="selection_box">
+
+              <div class="think_aloud_txt" data-status="hidden" style="display :none ;">
+                {% for answer in answers %}
+                {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "thinkaloud" %}
+                <p class="exemplar_p think_aloud_p"> {{answer.short_answer_text}} </p>
+                {% endif %}
+                {% endfor %}
+              </div>
+
+              <div class="source_txt" data-status="hidden" style="display :none ;">
+                {% for answer in answers %}
+                {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "crowedsource" %}
+                <p class="exemplar_p source_txt_p"> {{answer.short_answer_text}} </p>
+                {% endif %}
+                {% endfor %}
+              </div>
+
+              <div class="lab_study_txt" data-status="hidden" style="display :none ;">
+                {% for answer in answers %}
+                {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "labstudy" %}
+                <p class="exemplar_p lab_study_p"> {{answer.short_answer_text}} </p>
+                {% endif %}
+                {% endfor %}
+              </div>
+
+            </div>
+          </div>
+          <br>
+
+          {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.short_answer_text == None %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;"></textarea>
+        {% else %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;">{{ans.short_answer_text}}</textarea>
+        {% endif %}{% endif %}
+        {% endfor %}
+
+      </div>
+
+      <!-- end of template question segment -->
+
+      <!-- second textarea segment -->
+      <p>Guide: Enter you own answers in the below textbox</p>
+      {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.researcher_answer_text == None %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8"></textarea>
+        
+        {% else %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8">{{ans.researcher_answer_text}}</textarea>
+        
+        {% endif %}{% endif %}
+        {% endfor %}
+
+
+      </div>
+      <script type="text/javascript">
+        $("#button7").click(function () {
+          $("#div4").show();
+        });
+        $("#button8").click(function () {
+          $("#div4").hide();
+        });
+        if (document.getElementById('button7').checked) {
+          $("#div4").show();
+        } else if (document.getElementById('button8').checked) {
+          $("#div4").hide();
+        }
+      </script>
+      {% else %}
+      <font>{{question.text }}</font>
+      <div style="margin-left:0px;" class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+
+      <!-- template question segment -->
+      <div class="inspect">
+        <p style="color: red;">Guide: click the below button and choose the answer type, then click template answers in the textbox, it will automatically copy to the first textbox</p> 
+        <button type="button" class="show_button"> Template Answers </button>
+
+
+        <!-- the data-varname is used to store the value in the html tags, style attribute is used for the display -->
+        <div class="hidden_text" data-status="hidden" style="display :none ;">
+          <button type="button" class="button think_aloud"> Think aloud </button>
+
+          <button type="button" class="button crowed_source"> Crowed Source </button>
+
+          <button type="button" class="button lab_study"> Lab Study </button>
+
+
+
+          <div class="selection_box">
+
+            <div class="think_aloud_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "thinkaloud" %}
+              <p class="exemplar_p think_aloud_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="source_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "crowedsource" %}
+              <p class="exemplar_p source_txt_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="lab_study_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "labstudy" %}
+              <p class="exemplar_p lab_study_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        <br>
+
+        {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.short_answer_text == None %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;"></textarea>
+        {% else %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;">{{ans.short_answer_text}}</textarea>
+        {% endif %}{% endif %}
+        {% endfor %}
+
+      </div>
+
+      <!-- end of template question segment -->
+
+      <!-- second textarea segment -->
+      <p>Guide: Enter you own answers in the below textbox</p>
+      {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.researcher_answer_text == None %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8"></textarea>
+        
+        {% else %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8">{{ans.researcher_answer_text}}</textarea>
+        
+        {% endif %}{% endif %}
+        {% endfor %}
+
+
+      {% endif %}
+      <!-- pop out question 3 -->
+      {% elif question.question_num == 702 %}
+      <!-- checkbox type questions -->
+      <div id="div3" style="display :none ;">
+
+        <font>{{ question.text }}</font>
+        <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+          <span class="tooltiptext">{{question.tips}}</span>
+        </div>
+        <br>
+        <br>
+        {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id %}
+        {% if ans.short_answer_text == "['Audio recordings', 'Film/Video recordings']" %}
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Audio recordings" checked>
+        <label for="Audio recordings">Audio recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Film/Video recordings" checked>
+        <label for="Film/Video recordings">Film/Video recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Online survey">
+        <label for="Online survey">Online survey</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Other">
+        <label for="Other">Other</label><br>
+        {% elif ans.short_answer_text == "['Audio recordings']"%}
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Audio recordings" checked>
+        <label for="Audio recordings">Audio recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Film/Video recordings">
+        <label for="Film/Video recordings">Film/Video recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Online survey">
+        <label for="Online survey">Online survey</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Other">
+        <label for="Other">Other</label><br>
+        {% elif ans.short_answer_text == "['Film/Video recordings']"%}
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Audio recordings">
+        <label for="Audio recordings">Audio recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Film/Video recordings" checked>
+        <label for="Film/Video recordings">Film/Video recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Online survey">
+        <label for="Online survey">Online survey</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Other">
+        <label for="Other">Other</label><br>
+        {% elif ans.short_answer_text == "['Online survey']"%}
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Audio recordings">
+        <label for="Audio recordings">Audio recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Film/Video recordings">
+        <label for="Film/Video recordings">Film/Video recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Online survey" checked>
+        <label for="Online survey">Online survey</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Other">
+        <label for="Other">Other</label><br>
+        {% elif ans.short_answer_text == "['Other']"%}
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Audio recordings">
+        <label for="Audio recordings">Audio recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Film/Video recordings">
+        <label for="Film/Video recordings">Film/Video recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Online survey">
+        <label for="Online survey">Online survey</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Other" checked>
+        <label for="Other">Other</label><br>
+        {% else %}
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Audio recordings">
+        <label for="Audio recordings">Audio recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Film/Video recordings">
+        <label for="Film/Video recordings">Film/Video recordings</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Online survey">
+        <label for="Online survey">Online survey</label><br>
+        <input type="checkbox" id="{{question.question_num}}" name="sele1" value="Other">
+        <label for="Other">Other</label><br>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+       
+
+      </div>
+      <script type="text/javascript">
+        $("#button5").click(function () {
+          $("#div3").show();
+        });
+        $("#button6").click(function () {
+          $("#div3").hide();
+        });
+        if (document.getElementById('button5').checked) {
+          $("#div3").show();
+        } else if (document.getElementById('button6').checked) {
+          $("#div3").hide();
+        }
+      </script>
+
+
+      {% else %}
+
+      {% if question.question_num == 701%}
+      <font>{{ question.text }}</font>
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      <br>
+
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" id="button5" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button6" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" id="button5" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button6" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" id="button5" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button6" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% elif question.question_num == 715 %}
+      <font>{{ question.text }}</font>
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      <br>
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" id="button7" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button8" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" id="button7" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button8" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" id="button7" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" id="button8" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% else %}
+      <font>{{ question.text }}</font>
+
+      <div class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% endif %}
+      {% endif %}
+      <p></p>
+      {% endif %}
+      {% endfor %}
+
+
+
+      <a name="SectionF"></a>
+      <!-- Section F of the questionnaire -->
+      <h1>Section F</h1>
+      <h4>The questions in Section F concern risks to both participants and others connected with the study.</h4>
+      {% for question in que %}
+      {% if question.section_name == "F"%}
+      <font>{{question.text }}</font>
+      <div style="margin-left:0px;" class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      {% if question.is_short_answer == 1 %}
+      <br>
+
+      <!-- template question segment -->
+      <div class="inspect">
+        <p style="color: red;">Guide: click the below button and choose the answer type, then click template answers in the textbox, it will automatically copy to the first textbox</p> 
+        <button type="button" class="show_button"> Template Answers </button>
+
+
+        <!-- the data-varname is used to store the value in the html tags, style attribute is used for the display -->
+        <div class="hidden_text" data-status="hidden" style="display :none ;">
+          <button type="button" class="button think_aloud"> Think aloud </button>
+
+          <button type="button" class="button crowed_source"> Crowed Source </button>
+
+          <button type="button" class="button lab_study"> Lab Study </button>
+
+
+
+          <div class="selection_box">
+
+            <div class="think_aloud_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "thinkaloud" %}
+              <p class="exemplar_p think_aloud_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="source_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "crowedsource" %}
+              <p class="exemplar_p source_txt_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="lab_study_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "labstudy" %}
+              <p class="exemplar_p lab_study_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        <br>
+        {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.short_answer_text == None %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;"></textarea>
+        {% else %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;">{{ans.short_answer_text}}</textarea>
+        {% endif %}{% endif %}
+        {% endfor %}
+
+      </div>
+
+      <!-- end of template question segment -->
+
+      <!-- second textarea segment -->
+      <p>Guide: Enter you own answers in the below textbox</p>
+      {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.researcher_answer_text == None %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8"></textarea>
+        
+        {% else %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8">{{ans.researcher_answer_text}}</textarea>
+        
+        {% endif %}{% endif %}
+        {% endfor %}
+
+
+      {% else %}
+
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% endif %}
+      <p></p>
+      {% endif %}
+      {% endfor %}
+
+      <a name="SectionG"></a>
+      <!-- Section G of the questionnaire -->
+      <h1>Section G</h1>
+      <h4>The questions in Section G concern details of the research study. Please answer the following questions.</h4>
+      {% for question in que %}
+      {% if question.section_name == "G"%}
+      <font>{{question.text }}</font>
+      <div style="margin-left:0px;" class="tooltip"><i class="fa fa-question-circle" style="font-size:26px"></i>
+        <span class="tooltiptext">{{question.tips}}</span>
+      </div>
+      <br>
+      {% if question.is_short_answer == 1 %}
+      {% if question.question_num == 904 %}
+      <br>
+      <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="120" rows="30">Aims and hypotheses/research questions Research plan including duration of the study and/or timeline:
+
+
+Participant characteristics including sex, age range and inclusion/exclusion criteria (if relevant): 
+
+
+The intended sample size with a justification, and/or the particiant sampling/selection strategy (as relevant to your study):
+
+
+Details of where the study will be undertaken (location/site/URL):
+
+
+Details of how data will be collected and analysed Potential significance of the study:
+
+
+</textarea>
+
+      {% else %}
+
+      <!-- template question segment -->
+      <div class="inspect">
+        <p style="color: red;">Guide: click the below button and choose the answer type, then click template answers in the textbox, it will automatically copy to the first textbox</p> 
+        <button type="button" class="show_button"> Template Answers </button>
+
+
+        <!-- the data-varname is used to store the value in the html tags, style attribute is used for the display -->
+        <div class="hidden_text" data-status="hidden" style="display :none ;">
+          <button type="button" class="button think_aloud"> Think aloud </button>
+
+          <button type="button" class="button crowed_source"> Crowed Source </button>
+
+          <button type="button" class="button lab_study"> Lab Study </button>
+
+
+
+          <div class="selection_box">
+
+            <div class="think_aloud_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "thinkaloud" %}
+              <p class="exemplar_p think_aloud_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="source_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "crowedsource" %}
+              <p class="exemplar_p source_txt_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+            <div class="lab_study_txt" data-status="hidden" style="display :none ;">
+              {% for answer in answers %}
+              {% if answer.question_id == question and answer.is_referenced == 1 and answer.answer_type == "labstudy" %}
+              <p class="exemplar_p lab_study_p"> {{answer.short_answer_text}} </p>
+              {% endif %}
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        <br>
+
+        {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.short_answer_text == None %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;"></textarea>
+        {% else %}
+        
+        <textarea name="{{ans.id}}" id="{{ans.id}}" cols="60" rows="8" style="color: red;">{{ans.short_answer_text}}</textarea>
+        {% endif %}{% endif %}
+        {% endfor %}
+
+      </div>
+
+      <!-- end of template question segment -->
+      <p>Guide: Enter you own answers in the below textbox</p>
+      {% for ans in answers %}
+        {% if question == ans.question_id and a_id == ans.application_id%}
+        {% if ans.researcher_answer_text == None %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8"></textarea>
+        
+        {% else %}
+        <textarea name="{{question.question_num}}" id="{{question.question_num}}" cols="60" rows="8">{{ans.researcher_answer_text}}</textarea>
+        
+        {% endif %}{% endif %}
+        {% endfor %}
+
+
+      {% endif %}
+
+      <!-- checkbox type questions -->
+      {% elif question.is_short_answer == 2 %}
+      {% if question.question_num == 901 %}
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "['Participant observation (ethnography, systematic)', 'Questionnaire/survey']" %}
+      <input type="checkbox" name="sele2" value="Participant observation (ethnography, systematic)" checked>Participant observation (ethnography, systematic)<br>
+      <input type="checkbox" name="sele2" value="Questionnaire/survey" checked>Questionnaire/survey<br>
+      <input type="checkbox" name="sele2" value="Interviews (including oral history)">Interviews (including oral history)<br>
+      <input type="checkbox" name="sele2" value="Data linkage studie">Data linkage studie<br>
+      {% elif ans.short_answer_text == "['Participant observation (ethnography, systematic)']"%}
+      <input type="checkbox" name="sele2" value="Participant observation (ethnography, systematic)" checked>Participant observation (ethnography, systematic)<br>
+      <input type="checkbox" name="sele2" value="Questionnaire/survey">Questionnaire/survey<br>
+      <input type="checkbox" name="sele2" value="Interviews (including oral history)">Interviews (including oral history)<br>
+      <input type="checkbox" name="sele2" value="Data linkage studie">Data linkage studie<br>
+      {% elif ans.short_answer_text == "['Questionnaire/survey']"%}
+      <input type="checkbox" name="sele2" value="Participant observation (ethnography, systematic)">Participant observation (ethnography, systematic)<br>
+      <input type="checkbox" name="sele2" value="Questionnaire/survey" checked>Questionnaire/survey<br>
+      <input type="checkbox" name="sele2" value="Interviews (including oral history)">Interviews (including oral history)<br>
+      <input type="checkbox" name="sele2" value="Data linkage studie">Data linkage studie<br>
+      {% elif ans.short_answer_text == "['Interviews (including oral history)']"%}
+      <input type="checkbox" name="sele2" value="Participant observation (ethnography, systematic)">Participant observation (ethnography, systematic)<br>
+      <input type="checkbox" name="sele2" value="Questionnaire/survey">Questionnaire/survey<br>
+      <input type="checkbox" name="sele2" value="Interviews (including oral history)" checked>Interviews (including oral history)<br>
+      <input type="checkbox" name="sele2" value="Data linkage studie">Data linkage studie<br>
+      {% elif ans.short_answer_text == "['Data linkage studie']"%}
+      <input type="checkbox" name="sele2" value="Participant observation (ethnography, systematic)">Participant observation (ethnography, systematic)<br>
+      <input type="checkbox" name="sele2" value="Questionnaire/survey">Questionnaire/survey<br>
+      <input type="checkbox" name="sele2" value="Interviews (including oral history)">Interviews (including oral history)<br>
+      <input type="checkbox" name="sele2" value="Data linkage studie" checked>Data linkage studie<br>
+      {% else %}
+      <input type="checkbox" name="sele2" value="Participant observation (ethnography, systematic)">Participant observation (ethnography, systematic)<br>
+      <input type="checkbox" name="sele2" value="Questionnaire/survey">Questionnaire/survey<br>
+      <input type="checkbox" name="sele2" value="Interviews (including oral history)">Interviews (including oral history)<br>
+      <input type="checkbox" name="sele2" value="Data linkage studie">Data linkage studie<br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+      
+
+      {% elif question.question_num == 905%}
+      <p></p>
+      {% else %}
+
+      <!-- show the answers after submit -->
+      {% for ans in answers %}
+      {% if question == ans.question_id and a_id == ans.application_id %}
+      {% if ans.short_answer_text == "Yes" %}
+      <input type="radio" name="{{question.question_num}}" value="Yes" checked>
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% elif ans.short_answer_text == "No" %}
+      <input type="radio" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No" checked>
+      <label for="No">No</label><br>
+      {% else %}
+      <input type="radio" name="{{question.question_num}}" value="Yes">
+      <label for="Yes">Yes</label><br>
+      <input type="radio" name="{{question.question_num}}" value="No">
+      <label for="No">No</label><br>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% endif %}
+      <p></p>
+      {% endif %}
+      {% endfor %}
+      <div class="save-item1">
+      <input class="save-button" type="submit" value="Save" id="Save" name="Save">
+      <input class="save-button" type="submit" value="Complete" id="Complete" name="Save">
+      
+      </div>
+      <!--<input type="file" id="myFile" name="filename"><input type="submit">-->
+    </form>
+  </div>
+
+</body>
+
+</html>
+{% endblock %}

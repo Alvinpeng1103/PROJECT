@@ -1,0 +1,59 @@
+/* Styling for all template answer buttons */
+
+.show_button {
+    width: 160px;
+    height: 30px;
+    margin: 10px 0 10px 0;
+    border: 0px;
+    background-color: rgb(230, 70, 38);
+    color: white;
+    font-size: 14px;
+}
+
+/* Changes colour when hover */
+
+.show_button:hover {
+    background-color: rgb(210, 50, 18);
+}
+
+/* Styling for template answer button */
+
+.hidden_text button {
+    border: 0px;
+    background-color: rgb(230, 70, 38);
+    color: white;
+    font-size: 14px;
+    height: 30px;
+    width: 165px;
+}
+
+/* Changes colour when hover */
+
+.hidden_text button:hover {
+    background-color: rgb(210, 50, 18);
+}
+
+/* Changes colour when clicked and stays that way */
+
+.hidden_text button:focus {
+    background-color: #424242;
+}
+
+/* Styling for template answer selection box */
+
+.selection_box {
+    width: 600px;
+    height: 350px;
+    overflow: scroll;
+    border-radius: 2px;
+}
+
+.exemplar_p {
+    margin-top: 0px;
+    background-color: lightgray;
+    padding: 10px;
+}
+
+.exemplar_p:hover {
+    background-color: rgb(190, 190, 190);
+}
